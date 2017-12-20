@@ -1,0 +1,12 @@
+Django==2.0
+Pillow==4.3.0
+coreapi==2.3.3
+django-filter==1.1.0
+djangorestframework==3.7.7
+Markdown==2.6.10
+boto3==1.5.22
+django-rest-auth==0.9.3
+django-storages==1.6.5
+djangorestframework==3.7.7
+sorl-thumbnail==12.4.1
+gunicorn==19.7.1

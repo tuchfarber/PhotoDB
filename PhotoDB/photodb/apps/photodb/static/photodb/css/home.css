@@ -1,0 +1,102 @@
+h1{
+    margin-top: 10px;
+}
+.thumbnail{
+    max-width: 100%;
+    max-height: 200px;
+    border: 5px solid black;
+    margin: 20px auto;
+    display: block;
+}
+#filter{
+    margin: 0 
+}
+.paging{
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+}
+.paging button{
+    margin: 0 10px;
+}
+#lightbox{
+    padding-right: 0 !important;
+}
+.search-box{
+    max-width: 600px;
+    margin: auto;
+}
+
+#lightbox .modal-dialog{
+    max-width: 100%;
+}
+.photo{
+    max-height: 80vh;
+}
+.photo-nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.modal-nav{
+    font-size: 40px;
+    padding: 0 10px;
+}
+.close{
+    color: #eee;
+}
+.controls{
+    display: flex;
+    justify-content: right;
+}
+.control-item{
+    font-size: 1.25em;
+    color: #fff;
+    background-color: transparent;
+    display: inline-block;
+    padding: 0 20px;
+    cursor: pointer;
+}
+ 
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+    #lightbox .modal-dialog{
+        max-width: 50%;
+    }
+}
+ 
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  
+    #lightbox .modal-dialog{
+        max-width: 50%;
+    }
+}
+
+
+.control{
+    color: #fff;
+    background-color: transparent;
+    display: inline-block;
+    margin-bottom: 0;
+}
+#controls > div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 600px;
+    margin: 10px auto 0 auto;
+}
+.delete:hover:enabled{
+    color: rgb(255, 125, 125);
+}
+.tag:hover:enabled{
+    color: rgb(125, 125, 255)
+}
+.centered{
+    max-width: 600px;
+    margin: auto;
+}
+.selected{
+    border-color: #ff0000;
+}

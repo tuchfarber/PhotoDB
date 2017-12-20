@@ -1,0 +1,39 @@
+{% extends "photodb/base.html" %}
+
+{% load static %}
+
+{% block title %}Login{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'photodb/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div id="login-form">
+                <h2>Login</h2>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Username</span>
+                    </div>
+                    <input type="text" v-model="username" class="form-control">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Password</span>
+                    </div>
+                    <input type="password" v-model="password" class="form-control">
+                </div>
+                <button class="btn btn-primary" @click="login()">Submit</button>
+                <div class="error">[[error_text]]</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'photodb/js/utils.js' %}"></script>
+<script src="{% static 'photodb/js/login.js' %}"></script>
+{% endblock %}
