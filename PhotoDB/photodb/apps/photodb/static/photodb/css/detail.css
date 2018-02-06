@@ -1,0 +1,38 @@
+.photo{
+    display: block;
+    max-width: 100%;
+    max-height: 70vh;
+    margin: auto;
+    margin-bottom: 10px;
+}
+#year, #month, #day{
+    width: 5em;
+}
+.tag{
+    margin: 5px;
+    background-color: #555;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.tag button{
+    background-color: #555;
+    border: 0;
+    color: #fff;
+}
+.row{
+    margin: 20px 0;
+}
+
+.success, .error{
+    margin-left: 5px;
+}
+.success{
+    color: #0b5;
+}
+.error{
+    color: red;
+}
+.delete{
+    margin-left: 20px;
+}

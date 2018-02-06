@@ -1,0 +1,77 @@
+{% extends "photodb/base.html" %}
+
+{% load static %}
+
+{% block title %}Detail{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'photodb/css/detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container" id="detail">
+    <!-- Modal -->
+    <div class="modal fade" id="confirmation" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm</h5>
+                </div>
+                <div class="modal-body">
+                    Delete photo?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" @click="delete_photo()" class="btn btn-primary" data-dismiss="modal">Confirm</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
+    <div class="row">
+        <div class="col-12">
+            <img class="photo" :src="photo_url">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <span>Tags: </span>
+            <span class="tag" v-for="tag in tags">
+                [[tag]]
+                <button @click="removeTag(tag)">X</button>
+            </span>
+            <input type="text" v-model="new_tag" placeholder="Add tag" @keyup.enter="addTag()"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <label>Date (YYYY / MM / DD): </label>
+            <br>
+            <input type="number" min="1826" max="3000" max-length="4" 
+                v-model="year" id="year">
+            /
+            <input type="number" min="01" max="12" max-length="2" 
+                v-model="month" id="month">
+            /
+            <input type="number" min="01" max="31" max-length="2" 
+                v-model="day" id="day">
+            <small class="form-text text-muted">Leave any unsure value blank</small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary" @click="submit()">Save</button>
+            <button data-toggle="modal" data-target="#confirmation" class="delete btn btn-danger">Delete</button>
+            <span class="success">[[success_text]]</span>
+            <span class="error">[[error_text]]</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        let photo_id = "{{photo_id}}";
+    </script>
+    <script src="{% static 'photodb/js/utils.js' %}"></script>
+    <script src="{% static 'photodb/js/detail.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,10 @@
+#login-form{
+    max-width: 400px;
+    margin:auto;
+}
+.input-group{
+    margin: 10px 0;
+}
+.error{
+    color: #f00;
+}
