@@ -1,5 +1,8 @@
 from django.contrib.auth.models import User
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Q
+from io import BytesIO
+from PIL import Image
 from rest_framework import permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework.validators import ValidationError
@@ -19,12 +22,28 @@ class PhotoViewSet(viewsets.ModelViewSet):
         image = self.request.data.get('image')
         image_hash = hash_image(image)
         photo = Photo.objects.filter(image_hash=image_hash).first()
+        
         # Fail if photo already exists in DB
         if photo:
             raise ValidationError('{} already uploaded'.format(str(image)))
+
+        im = Image.open(image)
+        im.thumbnail((250,250))
+        thumb_io = BytesIO()
+
+        content_type = image.content_type
+        if content_type == 'image/jpeg':
+            pil_type = 'jpeg'
+        elif content_type == 'image/png':
+            pil_type = 'png'
+
+        im.save(thumb_io, format=pil_type)
+        thumb_file = SimpleUploadedFile('temp', thumb_io.getvalue(), content_type=content_type)
+
         serializer.save(
             owner=self.request.user,
-            image_hash=image_hash
+            image_hash=image_hash,
+            thumbnail=thumb_file
         )
 
     def get_queryset(self):

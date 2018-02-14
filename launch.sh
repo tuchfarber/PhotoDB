@@ -1,7 +1,5 @@
 #!/bin/bash
 cd PhotoDB
 python ./manage.py migrate
-echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'pass')" | python manage.py shell
-python ./manage.py runserver 0.0.0.0:8000
-
-#gunicorn photodb.wsgi
+python ./manage.py create_super_user --username $DJANGO_USERNAME --password $DJANGO_PASSWORD --noinput --email 'abc@example.com'
+gunicorn -b 0.0.0.0:80 photodb.wsgi

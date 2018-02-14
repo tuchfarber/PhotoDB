@@ -1,4 +1,4 @@
-FROM python:3.4
+FROM python:3.6-stretch
 RUN mkdir /code
 WORKDIR /code
 ADD requirements.txt /code/

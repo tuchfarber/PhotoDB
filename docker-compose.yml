@@ -1,0 +1,45 @@
+version: '3.0'
+services:
+
+  app:
+    image: tuchfarber/photodb
+    container_name: photodb.app
+    depends_on:
+      - mysql
+    volumes:
+      - static:/code/PhotoDB/photodb/apps/photodb/static/
+    networks:
+      - bridgenet
+
+  mysql:
+    image: mysql
+    container_name: photodb.mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "PhotoDB"
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - bridgenet
+
+  nginx:
+    image: nginx
+    container_name: photodb.nginx
+    volumes:
+      - static:/var/www/nginx/html/static/
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    networks:
+      - bridgenet
+    depends_on:
+      - mysql
+      - app
+    
+volumes:
+  static:
+  mysql:
+
+networks:
+  bridgenet:

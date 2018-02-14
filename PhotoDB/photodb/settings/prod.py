@@ -1,3 +1,6 @@
+import logging, logging.config
+import sys
+
 from .base import *
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
@@ -14,3 +17,27 @@ DATABASES = {
 }
 DEBUG = False
 ALLOWED_HOSTS = os.environ['DJANGO_ALLOWED_HOSTS'].split(' ')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Set us S3
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+
+# Configure all logging to go to stdout
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    },
+}
+logging.config.dictConfig(LOGGING)

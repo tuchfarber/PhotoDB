@@ -55,11 +55,4 @@ class Photo(models.Model):
     owner = models.ForeignKey('auth.User', related_name='photos', on_delete=models.CASCADE)
 
     def __str__(self):
-        return "<Photo {}>".format(self.id)
-
-    def save(self, *args, **kwargs):
-        super(Photo, self).save(*args, **kwargs)
-        if not self.thumbnail:
-            resized = get_thumbnail(self.image, "250x250", quality=80)
-            print(resized)
-            self.thumbnail.save(resized.name, ContentFile(resized.read()), True)
+        return "<Photo {}>".format(self.id) 
