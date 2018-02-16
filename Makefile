@@ -8,4 +8,4 @@ dev: ## Run with development settings
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml up
 
 prod: ## Run with production settings
-	docker-compose -f docker-compose.yml -f docker-compose-prod.yml up
+	docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d

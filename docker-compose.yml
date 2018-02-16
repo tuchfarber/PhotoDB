@@ -29,8 +29,6 @@ services:
     volumes:
       - static:/var/www/nginx/html/static/
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    ports:
-      - "80:80"
     networks:
       - bridgenet
     depends_on:
