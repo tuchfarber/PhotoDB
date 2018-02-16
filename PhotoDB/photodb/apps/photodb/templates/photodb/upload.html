@@ -45,8 +45,8 @@
             <span v-cloak v-for="upload in uploaded">
                 <img class="uploaded_photo" :src="upload.thumbnail" alt="Photo">
             </span>
-            <h3 v-if="errors.length > 0" class="error">[[errors.length]] failures</h3>
-            <p class="error" v-for="error in errors">[[error]]</p>
+            <h3 v-cloak v-if="errors.length > 0" class="error">[[errors.length]] failures</h3>
+            <p v-cloak class="error" v-for="error in errors">[[error]]</p>
         </div>
     </div>
 </div>
