@@ -38,3 +38,6 @@ a{
 .modal-footer{
     border-top-color: #777;
 }
+[v-cloak] {
+    display: none;
+}
