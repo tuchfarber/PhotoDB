@@ -8,6 +8,8 @@ services:
       DJANGO_SECRET_KEY: "s3cre+!"
       DJANGO_SETTINGS_MODULE: "photodb.settings.dev"
       DJANGO_ALLOWED_HOSTS: "localhost photodb.app"
+    volumes:
+      - ./:/code/
   nginx:
     ports:
       - "80:80"

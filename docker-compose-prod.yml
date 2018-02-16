@@ -4,3 +4,21 @@ services:
   app:
     env_file:
       - prod.env
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql
+    container_name: photodb.mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "PhotoDB"
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - bridgenet
+
+  nginx:
+    depends_on:
+      - mysql

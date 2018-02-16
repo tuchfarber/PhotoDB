@@ -10,18 +10,20 @@ import uuid
     
     
 
-def _renamer(instance, filename, is_thumbnail):
+def _renamer(id, filename, append=''):
     _, extension = os.path.splitext(filename)
-    thumb_ident = '-thumb' if is_thumbnail else ''
-    new_filename = "{}{}{}".format(str(instance.id), thumb_ident, extension)
+    new_filename = "{}{}{}".format(str(id), append, extension)
     new_path = '/'.join(['photos', new_filename])
     return new_path
 
 def rename_image(instance, filename):
-    return _renamer(instance, filename, False)
+    return _renamer(instance.id, instance.image.file.name, '')
 
 def rename_thumbnail(instance, filename):
-    return _renamer(instance, filename, True)
+    return _renamer(instance.id, instance.image.file.name, '-thumb')
+
+def rename_medium(instance, filename):
+    return _renamer(instance.id, instance.image.file.name, '-med')
 
 def hash_image(image):
     file = image.read()
@@ -44,6 +46,7 @@ class Tag(models.Model):
 class Photo(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     image = models.ImageField(upload_to=rename_image)
+    medium = models.ImageField(upload_to=rename_medium, null=True)
     thumbnail = models.ImageField(upload_to=rename_thumbnail, null=True)
     image_hash = models.CharField(max_length=40, unique=True)
     year = models.DecimalField(max_digits=4, decimal_places=0, blank=True, null=True)

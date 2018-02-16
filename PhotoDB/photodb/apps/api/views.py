@@ -18,6 +18,19 @@ class PhotoViewSet(viewsets.ModelViewSet):
     serializer_class = PhotoSerializer
     permission_classes = (IsOwnerOrReadOnly, permissions.IsAuthenticated)
 
+    def shrink_photo(self, image, image_hash, size):
+        im = Image.open(image)
+        im.thumbnail(size)
+        thumb_io = BytesIO()
+        content_type = image.content_type
+        if content_type == 'image/jpeg':
+            pil_type = 'jpeg'
+        elif content_type == 'image/png':
+            pil_type = 'png'
+
+        im.save(thumb_io, format=pil_type)
+        return SimpleUploadedFile(str(image_hash), thumb_io.getvalue(), content_type=content_type)
+
     def perform_create(self, serializer):
         image = self.request.data.get('image')
         image_hash = hash_image(image)
@@ -27,23 +40,14 @@ class PhotoViewSet(viewsets.ModelViewSet):
         if photo:
             raise ValidationError('{} already uploaded'.format(str(image)))
 
-        im = Image.open(image)
-        im.thumbnail((250,250))
-        thumb_io = BytesIO()
-
-        content_type = image.content_type
-        if content_type == 'image/jpeg':
-            pil_type = 'jpeg'
-        elif content_type == 'image/png':
-            pil_type = 'png'
-
-        im.save(thumb_io, format=pil_type)
-        thumb_file = SimpleUploadedFile('temp', thumb_io.getvalue(), content_type=content_type)
+        thumb_file = self.shrink_photo(image, image_hash, (250, 250))
+        med_file = self.shrink_photo(image, image_hash, (1024, 1024))
 
         serializer.save(
             owner=self.request.user,
             image_hash=image_hash,
-            thumbnail=thumb_file
+            thumbnail=thumb_file,
+            medium=med_file
         )
 
     def get_queryset(self):
