@@ -43,7 +43,7 @@
         <div class="col-12">
             <h2 class="center-text">Uploads ([[uploaded.length]]/[[photos.length]])</h2>
             <span v-for="upload in uploaded">
-                <img class="uploaded_photo" :src="upload.image" alt="Photo">
+                <img class="uploaded_photo" :src="upload.thumbnail" alt="Photo">
             </span>
             <h3 v-if="errors.length > 0" class="error">[[errors.length]] failures</h3>
             <p class="error" v-for="error in errors">[[error]]</p>
