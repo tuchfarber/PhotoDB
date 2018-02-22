@@ -8,7 +8,7 @@ dev: ## Run with development settings
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml up --force-recreate
 
 prod: ## Run with production settings
-	docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d
+	docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d --force-recreate
 
 app-shell: ## Enter bash shell
 	docker exec -it photodb.app bash
