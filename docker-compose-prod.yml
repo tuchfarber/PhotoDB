@@ -2,10 +2,15 @@ version: '3.0'
 services:
 
   app:
+    image: tuchfarber/photodb
     env_file:
       - prod.env
     depends_on:
       - mysql
+    volumes:
+      - static:/code/PhotoDB/photodb/apps/photodb/static/
+    networks:
+      - bridgenet
 
   mysql:
     image: mysql
@@ -22,3 +27,19 @@ services:
   nginx:
     depends_on:
       - mysql
+    image: nginx
+    container_name: photodb.nginx
+    volumes:
+      - static:/var/www/nginx/html/static/
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - bridgenet
+    depends_on:
+      - app
+
+volumes:
+  static:
+  mysql:
+
+networks:
+  bridgenet:

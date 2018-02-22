@@ -2,6 +2,7 @@ version: '3.0'
 services:
 
   app:
+    image: tuchfarber/photodb:dev
     environment:
       DJANGO_USERNAME: "admin"
       DJANGO_PASSWORD: "photodb"
@@ -10,7 +11,6 @@ services:
       DJANGO_ALLOWED_HOSTS: "localhost photodb.app"
     volumes:
       - ./:/code/
-  nginx:
     ports:
       - "80:80"
 
