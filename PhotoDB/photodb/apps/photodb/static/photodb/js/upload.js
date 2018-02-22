@@ -14,11 +14,13 @@ upload_form = new Vue({
         tags: [],
         new_tag: '',
         errors: [],
+        upload_index: 0
     },
     methods: {
         reset: function(){
             this.uploaded = [];
             this.errors = [];
+            this.upload_index = 0;
         },
         removeTag: function(tag){
             this.tags = this.tags.filter(el => el !== tag);
@@ -36,24 +38,20 @@ upload_form = new Vue({
                 let promises = Tag.create_tags(this.tags);
                 axios.all(promises)
                 .then( response => {
-                    this.uploadPhotos();
+                    this.uploadPhoto();
                 })
                 .catch( error => {
-                    this.uploadPhotos();
+                    this.uploadPhoto();
                 })
             }else{
-                this.uploadPhotos();
+                this.uploadPhoto();
             }
         },
         tagError: function(error){
             console.log(error)
         },
-        uploadPhotos: function(){
-            Array.from(this.photos).forEach( photo => {
-                this.uploadSinglePhoto(photo)
-            })
-        },
-        uploadSinglePhoto: function(photo){
+        uploadPhoto: function(){
+            photo = this.photos[this.upload_index]
             data = new FormData();
             data.append('image', photo);
             data.append('year', this.year);
@@ -72,11 +70,19 @@ upload_form = new Vue({
             })
             .then( response => {
                 this.uploaded.push(response.data);
+                this.upload_index += 1
+                if(this.upload_index < this.photos.length){
+                    this.uploadPhoto()
+                }
             })
             .catch( error => {
                 let msg = error.response.data[0]
                 console.log(msg)
                 this.errors.push(msg)
+                this.upload_index += 1
+                if(this.upload_index < this.photos.length){
+                    this.uploadPhoto()
+                }
             })
         }
     }
