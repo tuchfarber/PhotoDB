@@ -72,10 +72,12 @@ class PhotoViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (IsOwnerOrReadOnly, permissions.IsAuthenticated)
 
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    permission_classes = (IsOwnerOrReadOnly, permissions.IsAuthenticated)
 
 class TagCategoryViewSet(viewsets.ModelViewSet):
     queryset = TagCategory.objects.all()
