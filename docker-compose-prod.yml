@@ -2,13 +2,14 @@ version: '3.0'
 services:
 
   app:
+    build: ./
     image: tuchfarber/photodb
     env_file:
       - prod.env
     depends_on:
       - mysql
     volumes:
-      - static:/code/PhotoDB/photodb/apps/photodb/static/
+      - static:/code/PhotoDB/photodb/static/
     networks:
       - bridgenet
 
