@@ -61,6 +61,11 @@ var home = new Vue({
         },
         get_next_photo: function(){
             if(this.next_url){
+                // Necessary to fix mixed content failures since DRF doesn't know it's using SSL
+                if(location.protocol == 'https:' && this.next_url.slice(0, 5) != 'https'){
+                    url_start = this.next_url.indexOf('://') + 3
+                    this.next_url = 'https://' + this.next_url.slice(url_start)
+                }
                 axios.get(this.next_url).then( data => {
                     this.photos = this.photos.concat(data.data.results);
                     this.next_url = data.data.next;
