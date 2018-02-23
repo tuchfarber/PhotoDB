@@ -8,7 +8,7 @@ dev-up: ## Run with development settings
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml up --force-recreate
 
 prod-up: ## Run with production settings
-	docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d
+	docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d --build
 
 prod-restart: ## Kills containers, clears static volume, restarts containers
 	-docker-compose -f docker-compose.yml -f docker-compose-prod.yml down ## Ignore failure do to remove network
