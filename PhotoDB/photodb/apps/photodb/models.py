@@ -30,15 +30,8 @@ def hash_image(image):
     file_hash = sha1(file).hexdigest()
     return file_hash
 
-class TagCategory(models.Model):
-    name = models.CharField(max_length=128, primary_key=True)
-
-    def __str__(self):
-        return "<TagCategory {}>".format(self.name)
-
 class Tag(models.Model):
     name = models.CharField(max_length=128, primary_key=True)
-    category = models.ForeignKey(TagCategory, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return "<Tag {}>".format(self.name)
@@ -49,9 +42,6 @@ class Photo(models.Model):
     medium = models.ImageField(upload_to=rename_medium, null=True)
     thumbnail = models.ImageField(upload_to=rename_thumbnail, null=True)
     image_hash = models.CharField(max_length=40, unique=True)
-    year = models.DecimalField(max_digits=4, decimal_places=0, blank=True, null=True)
-    month = models.DecimalField(max_digits=2, decimal_places=0, blank=True, null=True)
-    day = models.DecimalField(max_digits=2, decimal_places=0, blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

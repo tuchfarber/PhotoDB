@@ -8,7 +8,7 @@ import json
 
 from .permissions import IsOwnerOrReadOnly
 
-from .models import Photo, Tag, TagCategory
+from .models import Photo, Tag
 
 from photodb.apps.api.serializers import PhotoSerializer
 

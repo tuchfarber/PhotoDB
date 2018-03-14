@@ -6,11 +6,12 @@ from PIL import Image
 from rest_framework import permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework.validators import ValidationError
+from rest_framework.views import APIView
 import json
 
 from photodb.apps.photodb.permissions import IsOwnerOrReadOnly
-from photodb.apps.photodb.models import Photo, Tag, TagCategory, hash_image
-from .serializers import PhotoSerializer, UserSerializer, TagSerializer, TagCategorySerializer
+from photodb.apps.photodb.models import Photo, Tag, hash_image
+from .serializers import PhotoSerializer, UserSerializer, TagSerializer
 
 
 class PhotoViewSet(viewsets.ModelViewSet):
@@ -79,6 +80,9 @@ class TagViewSet(viewsets.ModelViewSet):
     serializer_class = TagSerializer
     permission_classes = (IsOwnerOrReadOnly, permissions.IsAuthenticated)
 
-class TagCategoryViewSet(viewsets.ModelViewSet):
-    queryset = TagCategory.objects.all()
-    serializer_class = TagCategorySerializer
+class CurrentUserView(APIView):
+    def get(self, request):
+        user = request.user
+        return Response({
+            'username': user.username
+        })

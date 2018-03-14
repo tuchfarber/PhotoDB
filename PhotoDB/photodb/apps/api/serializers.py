@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 
 
-from photodb.apps.photodb.models import Photo, Tag, TagCategory
+from photodb.apps.photodb.models import Photo, Tag
 
 class PhotoSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -23,9 +23,3 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ('name', 'category')
-
-class TagCategorySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = TagCategory
-        fields = ('name')
