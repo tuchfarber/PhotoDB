@@ -37,10 +37,12 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
     'storages',
-    'sorl.thumbnail'
+    'sorl.thumbnail',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -114,11 +116,37 @@ MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework.authentication.SessionAuthentication',
+   ),
 }
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 's3cre+!')
-SECRET_KEY = 'cow'
+
+CORS_ORIGIN_WHITELIST = os.environ.get('DJANGO_CORS_WHITELIST', (
+    'localhost',
+    '127.0.0.1',
+    'localhost:8080',
+    '127.0.0.1:8080',
+))
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-auth-token',
+    'x-csrftoken',
+    'x-requested-with',
+)
+
+REST_SESSION_LOGIN = True
+SESSION_COOKIE_DOMAIN = 'localhost'
+CORS_ALLOW_CREDENTIALS = True

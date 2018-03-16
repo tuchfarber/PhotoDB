@@ -9,3 +9,7 @@ DATABASES = {
 DEBUG = True
 STATIC_ROOT = os.path.join(BASE_DIR, '/static')
 ALLOWED_HOSTS = os.environ['DJANGO_ALLOWED_HOSTS'].split(' ')
+CORS_ORIGIN_WHITELIST = (
+    'localhost',
+    'localhost:8080'
+)

@@ -26,3 +26,9 @@ nginx-shell: ## Enter nginx shell
 
 mysql-shell: ## Enter nginx shell
 	docker exec -it photodb.mysql mysql -u root
+
+migrations: ## Generate migrations
+	docker exec -it photodb.app /code/PhotoDB/manage.py makemigrations
+
+migrate: ## Migrate DB
+	docker exec -it photodb.app /code/PhotoDB/manage.py makemigrations

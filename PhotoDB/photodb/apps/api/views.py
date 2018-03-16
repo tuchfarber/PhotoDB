@@ -61,10 +61,6 @@ class PhotoViewSet(viewsets.ModelViewSet):
             return Photo.objects.filter(tags__isnull=True)
         
         queryset = Photo.objects.filter(
-            Q(year__startswith=keyword) |
-            Q(month__startswith=keyword) |
-            Q(day__startswith=keyword) |
-            Q(year__startswith=keyword) |
             Q(tags__name__startswith=keyword)
         ).distinct()
 

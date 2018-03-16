@@ -9,7 +9,7 @@ class PhotoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Photo
-        fields = ('id', 'image', 'thumbnail', 'medium', 'year', 'month', 'day', 'tags', 'created_at', 'updated_at', 'owner')
+        fields = ('id', 'image', 'thumbnail', 'medium', 'tags', 'created_at', 'updated_at', 'owner')
 
 class UserSerializer(serializers.ModelSerializer):
     photos = serializers.PrimaryKeyRelatedField(many=True, queryset=User.objects.all())
@@ -22,4 +22,4 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
-        fields = ('name', 'category')
+        fields = ('name',)

@@ -2,15 +2,13 @@ version: '3.0'
 services:
 
   app:
-    image: tuchfarber/photodb:dev
     environment:
       DJANGO_USERNAME: "admin"
       DJANGO_PASSWORD: "photodb"
       DJANGO_SECRET_KEY: "s3cre+!"
       DJANGO_SETTINGS_MODULE: "photodb.settings.dev"
-      DJANGO_ALLOWED_HOSTS: "localhost photodb.app"
+      DJANGO_ALLOWED_HOSTS: "localhost photodb.app localhost:8080"
     volumes:
       - ./:/code/
     ports:
       - "80:80"
-
