@@ -41,3 +41,4 @@ LOGGING = {
     },
 }
 logging.config.dictConfig(LOGGING)
+SESSION_COOKIE_DOMAIN = os.environ['DJANGO_COOKIE_DOMAIN']
